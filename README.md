@@ -96,6 +96,8 @@ ___
 
   </details>
 
+___
+
 ## Example Values
 
 You can use these values to test your implementation. You can of course [look up the formulas](https://en.wikipedia.org/wiki/Conversion_of_scales_of_temperature), but **if you don't fear a challenge**, try remapping the scales yourself based on these example values.
