@@ -37,7 +37,7 @@ public class TemperatureUtils {
 
     private static final float CELSIUS_TO_KELVIN_OFFSET = 273.15f;
 
-    public static boolean isAboveAbsoluteZero(float temperatureInCelsius) {
+    public static boolean isPhysicallyPossible(float temperatureInCelsius) {
         return toKelvin(temperatureInCelsius) >= 0.0f;
     }
 
