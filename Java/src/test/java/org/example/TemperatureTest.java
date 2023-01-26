@@ -41,11 +41,14 @@ class TemperatureTest {
     @ParameterizedTest
     @CsvSource(textBlock = KNOWN_VALUES)
     void shouldProvideCorrectValue_inKelvin(float knownKelvin, float knownCelsius, float knownFahrenheit) {
-        final var temperature = Temperature.fromFahrenheit(knownFahrenheit);
+        final var actualKelvinFromKelvin = Temperature.fromKelvin(knownKelvin).asKelvin();
+        assertThat(actualKelvinFromKelvin).isCloseTo(knownKelvin, Offset.offset(EPSILON));
 
-        final var actualKelvin = temperature.asKelvin();
+        final var actualKelvinFromCelsius = Temperature.fromCelsius(knownCelsius).asKelvin();
+        assertThat(actualKelvinFromCelsius).isCloseTo(knownKelvin, Offset.offset(EPSILON));
 
-        assertThat(actualKelvin).isCloseTo(knownKelvin, Offset.offset(EPSILON));
+        final var actualKelvinFromFahrenheit = Temperature.fromFahrenheit(knownFahrenheit).asKelvin();
+        assertThat(actualKelvinFromFahrenheit).isCloseTo(knownKelvin, Offset.offset(EPSILON));
     }
 
     @ParameterizedTest

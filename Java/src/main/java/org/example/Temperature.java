@@ -16,6 +16,10 @@ public class Temperature {
         this.celsius = celsius;
     }
 
+    public static Temperature fromKelvin(float kelvin) {
+        return new Temperature(kelvinToCelsius(kelvin));
+    }
+
     public static Temperature fromCelsius(float celsius) {
         return new Temperature(celsius);
     }
@@ -36,10 +40,12 @@ public class Temperature {
         return celsiusToFahrenheit(celsius);
     }
 
+    private static float kelvinToCelsius(float kelvin) {
+        return kelvin - zeroCelsiusInKelvin;
+    }
+
     private static float celsiusToKelvin(float celsius) {
-        return remap(celsius,
-                absoluteZeroInCelsius, zeroCelsiusInCelsius,
-                absoluteZeroInKelvin, zeroCelsiusInKelvin);
+        return celsius + zeroCelsiusInKelvin;
     }
 
     private static float fahrenheitToCelsius(float fahrenheit) {
