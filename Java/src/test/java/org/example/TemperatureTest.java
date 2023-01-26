@@ -11,6 +11,13 @@ class TemperatureTest {
 
     private static final float EPSILON = 0.001f;
 
+    private static final String KNOWN_VALUES = """
+            # Celsius, Fahrenheit
+            0.0, 32.0
+            -273.15, -459.67
+            99.9839, 211.97102
+            """;
+
     @Test
     void shouldPreserveValue_fromCelsiusToCelsius() {
         final var expectedCelsius = 42.1337f;
@@ -22,17 +29,22 @@ class TemperatureTest {
     }
 
     @ParameterizedTest
-    @CsvSource(textBlock = """
-            # Celsius, Fahrenheit
-            0.0, 32.0
-            -273.15, -459.67
-            99.9839, 211.97102
-            """)
-    void shouldProvideCorrectValue_inFahrenheit(float providedCelsius, float expectedFahrenheit) {
-        final var temperature = Temperature.fromCelsius(providedCelsius);
+    @CsvSource(textBlock = KNOWN_VALUES)
+    void shouldProvideCorrectValue_inCelsius(float knownCelsius, float knownFahrenheit) {
+        final var temperature = Temperature.fromFahrenheit(knownFahrenheit);
+
+        final var actualCelsius = temperature.asCelsius();
+
+        assertThat(actualCelsius).isCloseTo(knownCelsius, Offset.offset(EPSILON));
+    }
+
+    @ParameterizedTest
+    @CsvSource(textBlock = KNOWN_VALUES)
+    void shouldProvideCorrectValue_inFahrenheit(float knownCelsius, float knownFahrenheit) {
+        final var temperature = Temperature.fromCelsius(knownCelsius);
 
         final var actualFahrenheit = temperature.asFahrenheit();
 
-        assertThat(actualFahrenheit).isCloseTo(expectedFahrenheit, Offset.offset(EPSILON));
+        assertThat(actualFahrenheit).isCloseTo(knownFahrenheit, Offset.offset(EPSILON));
     }
 }

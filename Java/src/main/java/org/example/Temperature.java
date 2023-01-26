@@ -16,12 +16,22 @@ public class Temperature {
         return new Temperature(celsius);
     }
 
+    public static Temperature fromFahrenheit(float fahrenheit) {
+        return new Temperature(fahrenheitToCelsius(fahrenheit));
+    }
+
     public float asCelsius() {
         return celsius;
     }
 
     public float asFahrenheit() {
         return celsiusToFahrenheit(this.celsius);
+    }
+
+    private static float fahrenheitToCelsius(float fahrenheit) {
+        return remap(fahrenheit,
+                absoluteZeroInFahrenheit, zeroCelsiusInFahrenheit,
+                absoluteZeroInCelsius, 0);
     }
 
     private static float celsiusToFahrenheit(float celsius) {
