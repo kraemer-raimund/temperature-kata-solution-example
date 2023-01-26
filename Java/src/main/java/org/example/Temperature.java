@@ -17,15 +17,29 @@ public class Temperature {
     }
 
     public static Temperature fromKelvin(float kelvin) {
+        if (kelvin < absoluteZeroInKelvin) {
+            throw new IllegalArgumentException(
+                    String.format("Provided temperature (%f Kelvin) is below absolute zero.", kelvin));
+        }
         return new Temperature(kelvin);
     }
 
     public static Temperature fromCelsius(float celsius) {
-        return new Temperature(celsiusToKelvin(celsius));
+        final float kelvin = celsiusToKelvin(celsius);
+        if (kelvin < absoluteZeroInKelvin) {
+            throw new IllegalArgumentException(
+                    String.format("Provided temperature (%f Celsius) is below absolute zero.", celsius));
+        }
+        return new Temperature(kelvin);
     }
 
     public static Temperature fromFahrenheit(float fahrenheit) {
-        return new Temperature(celsiusToKelvin(fahrenheitToCelsius(fahrenheit)));
+        final float kelvin = celsiusToKelvin(fahrenheitToCelsius(fahrenheit));
+        if (kelvin < absoluteZeroInKelvin) {
+            throw new IllegalArgumentException(
+                    String.format("Provided temperature (%f Fahrenheit) is below absolute zero.", fahrenheit));
+        }
+        return new Temperature(kelvin);
     }
 
     public float asKelvin() {

@@ -1,10 +1,12 @@
 package org.example;
 
 import org.assertj.core.data.Offset;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class TemperatureTest {
 
@@ -54,5 +56,12 @@ class TemperatureTest {
 
         final var actualFahrenheitFromFahrenheit = Temperature.fromFahrenheit(knownFahrenheit).asFahrenheit();
         assertThat(actualFahrenheitFromFahrenheit).isCloseTo(knownFahrenheit, Offset.offset(EPSILON));
+    }
+
+    @Test
+    void shouldThrowExceptionForValuesBelowAbsoluteZero() {
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> Temperature.fromKelvin(-1.0f));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> Temperature.fromCelsius(-300.0f));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> Temperature.fromFahrenheit(-500.0f));
     }
 }
