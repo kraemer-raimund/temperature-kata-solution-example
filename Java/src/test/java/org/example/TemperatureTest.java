@@ -2,6 +2,8 @@ package org.example;
 
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,13 +21,17 @@ class TemperatureTest {
         assertThat(actualCelsius).isCloseTo(expectedCelsius, Offset.offset(EPSILON));
     }
 
-    @Test
-    void shouldProvideCorrectValue_inFahrenheit() {
-        final var providedCelsius = 0.0f;
+    @ParameterizedTest
+    @CsvSource(textBlock = """
+            # Celsius, Fahrenheit
+            0.0, 32.0
+            -273.15, -459.67
+            99.9839, 211.97102
+            """)
+    void shouldProvideCorrectValue_inFahrenheit(float providedCelsius, float expectedFahrenheit) {
         final var temperature = Temperature.fromCelsius(providedCelsius);
 
         final var actualFahrenheit = temperature.asFahrenheit();
-        final var expectedFahrenheit = 32.0f;
 
         assertThat(actualFahrenheit).isCloseTo(expectedFahrenheit, Offset.offset(EPSILON));
     }
