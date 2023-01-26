@@ -46,6 +46,10 @@ public class Temperature {
         return new Temperature(absoluteZeroInKelvin);
     }
 
+    public static Temperature freezingPointOfWater() {
+        return new Temperature(celsiusToKelvin(0.0f));
+    }
+
     public float asKelvin() {
         return kelvin;
     }

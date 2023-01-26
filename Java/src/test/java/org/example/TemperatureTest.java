@@ -70,5 +70,9 @@ class TemperatureTest {
         final var absoluteZero = Temperature.absoluteZero();
         final float expectedAbsoluteZeroInKelvin = 0.0f;
         assertThat(absoluteZero.asKelvin()).isCloseTo(expectedAbsoluteZeroInKelvin, Offset.offset(EPSILON));
+
+        final var freezingPointOfWater = Temperature.freezingPointOfWater();
+        final float expectedFreezingPointOfWaterInCelsius = 0.0f;
+        assertThat(freezingPointOfWater.asCelsius()).isCloseTo(expectedFreezingPointOfWaterInCelsius, Offset.offset(EPSILON));
     }
 }
