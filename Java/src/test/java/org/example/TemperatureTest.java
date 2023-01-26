@@ -54,20 +54,26 @@ class TemperatureTest {
     @ParameterizedTest
     @CsvSource(textBlock = KNOWN_VALUES)
     void shouldProvideCorrectValue_inCelsius(float knownKelvin, float knownCelsius, float knownFahrenheit) {
-        final var temperature = Temperature.fromFahrenheit(knownFahrenheit);
+        final var actualCelsiusFromKelvin = Temperature.fromKelvin(knownKelvin).asCelsius();
+        assertThat(actualCelsiusFromKelvin).isCloseTo(knownCelsius, Offset.offset(EPSILON));
 
-        final var actualCelsius = temperature.asCelsius();
+        final var actualCelsiusFromCelsius = Temperature.fromCelsius(knownCelsius).asCelsius();
+        assertThat(actualCelsiusFromCelsius).isCloseTo(knownCelsius, Offset.offset(EPSILON));
 
-        assertThat(actualCelsius).isCloseTo(knownCelsius, Offset.offset(EPSILON));
+        final var actualCelsiusFromFahrenheit = Temperature.fromFahrenheit(knownFahrenheit).asCelsius();
+        assertThat(actualCelsiusFromFahrenheit).isCloseTo(knownCelsius, Offset.offset(EPSILON));
     }
 
     @ParameterizedTest
     @CsvSource(textBlock = KNOWN_VALUES)
     void shouldProvideCorrectValue_inFahrenheit(float knownKelvin, float knownCelsius, float knownFahrenheit) {
-        final var temperature = Temperature.fromCelsius(knownCelsius);
+        final var actualFahrenheitFromKelvin = Temperature.fromKelvin(knownKelvin).asFahrenheit();
+        assertThat(actualFahrenheitFromKelvin).isCloseTo(knownFahrenheit, Offset.offset(EPSILON));
 
-        final var actualFahrenheit = temperature.asFahrenheit();
+        final var actualFahrenheitFromCelsius = Temperature.fromCelsius(knownCelsius).asFahrenheit();
+        assertThat(actualFahrenheitFromCelsius).isCloseTo(knownFahrenheit, Offset.offset(EPSILON));
 
-        assertThat(actualFahrenheit).isCloseTo(knownFahrenheit, Offset.offset(EPSILON));
+        final var actualFahrenheitFromFahrenheit = Temperature.fromFahrenheit(knownFahrenheit).asFahrenheit();
+        assertThat(actualFahrenheitFromFahrenheit).isCloseTo(knownFahrenheit, Offset.offset(EPSILON));
     }
 }
