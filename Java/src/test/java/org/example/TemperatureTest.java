@@ -79,4 +79,19 @@ class TemperatureTest {
         final float expectedBoilingPointOfWaterInCelsius = 99.9839f;
         assertThat(boilingPointOfWater.asCelsius()).isCloseTo(expectedBoilingPointOfWaterInCelsius, Offset.offset(EPSILON));
     }
+
+    @Test
+    void shouldFormatCorrectly() {
+        // Note: \u00A0 is a non-breaking space, used in front of physical unit symbols.
+
+        final var temperatureFromKelvin = Temperature.fromKelvin(123.45f);
+        assertThat(temperatureFromKelvin.formatAsKelvin()).isEqualTo("123.45\u00A0K");
+
+        // This test implicitly documents the expected rounding behavior.
+        final var temperatureFromCelsius = Temperature.fromCelsius(-2.789123f);
+        assertThat(temperatureFromCelsius.formatAsCelsius()).isEqualTo("-2.79\u00A0°C");
+
+        final var temperatureFromFahrenheit = Temperature.fromFahrenheit(36);
+        assertThat(temperatureFromFahrenheit.formatAsFahrenheit()).isEqualTo("36.00\u00A0°F");
+    }
 }

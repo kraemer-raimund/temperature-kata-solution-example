@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Locale;
+
 public class Temperature {
 
     private static final float absoluteZeroInKelvin = 0.0f;
@@ -67,6 +69,21 @@ public class Temperature {
 
     public float asFahrenheit() {
         return celsiusToFahrenheit(kelvinToCelsius(kelvin));
+    }
+
+    public String formatAsKelvin() {
+        return String.format(Locale.ENGLISH, "%.2f\u00A0K", kelvin);
+    }
+
+    public String formatAsCelsius() {
+        final var celsius = kelvinToCelsius(kelvin);
+        return String.format(Locale.ENGLISH, "%.2f\u00A0°C", celsius);
+    }
+
+    public String formatAsFahrenheit() {
+        final var celsius = kelvinToCelsius(kelvin);
+        final var fahrenheit = celsiusToFahrenheit(celsius);
+        return String.format(Locale.ENGLISH, "%.2f\u00A0°F", fahrenheit);
     }
 
     private static float kelvinToCelsius(float kelvin) {
