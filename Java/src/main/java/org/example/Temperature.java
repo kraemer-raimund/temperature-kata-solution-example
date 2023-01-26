@@ -10,34 +10,34 @@ public class Temperature {
     private static final float zeroCelsiusInKelvin = 273.15f;
     private static final float zeroCelsiusInFahrenheit = 32.0f;
 
-    private final float celsius;
+    private final float kelvin;
 
-    private Temperature(float celsius) {
-        this.celsius = celsius;
+    private Temperature(float kelvin) {
+        this.kelvin = kelvin;
     }
 
     public static Temperature fromKelvin(float kelvin) {
-        return new Temperature(kelvinToCelsius(kelvin));
+        return new Temperature(kelvin);
     }
 
     public static Temperature fromCelsius(float celsius) {
-        return new Temperature(celsius);
+        return new Temperature(celsiusToKelvin(celsius));
     }
 
     public static Temperature fromFahrenheit(float fahrenheit) {
-        return new Temperature(fahrenheitToCelsius(fahrenheit));
+        return new Temperature(celsiusToKelvin(fahrenheitToCelsius(fahrenheit)));
     }
 
     public float asKelvin() {
-        return celsiusToKelvin(celsius);
+        return kelvin;
     }
 
     public float asCelsius() {
-        return celsius;
+        return kelvinToCelsius(kelvin);
     }
 
     public float asFahrenheit() {
-        return celsiusToFahrenheit(celsius);
+        return celsiusToFahrenheit(kelvinToCelsius(kelvin));
     }
 
     private static float kelvinToCelsius(float kelvin) {
