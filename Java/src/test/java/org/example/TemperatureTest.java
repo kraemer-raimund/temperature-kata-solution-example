@@ -18,4 +18,15 @@ class TemperatureTest {
 
         assertThat(actualCelsius).isCloseTo(expectedCelsius, Offset.offset(EPSILON));
     }
+
+    @Test
+    void shouldProvideCorrectValue_inFahrenheit() {
+        final var providedCelsius = 0.0f;
+        final var temperature = Temperature.fromCelsius(providedCelsius);
+
+        final var actualFahrenheit = temperature.asFahrenheit();
+        final var expectedFahrenheit = 32.0f;
+
+        assertThat(actualFahrenheit).isCloseTo(expectedFahrenheit, Offset.offset(EPSILON));
+    }
 }
