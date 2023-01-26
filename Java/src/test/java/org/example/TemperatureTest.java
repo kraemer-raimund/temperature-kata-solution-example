@@ -74,5 +74,9 @@ class TemperatureTest {
         final var freezingPointOfWater = Temperature.freezingPointOfWater();
         final float expectedFreezingPointOfWaterInCelsius = 0.0f;
         assertThat(freezingPointOfWater.asCelsius()).isCloseTo(expectedFreezingPointOfWaterInCelsius, Offset.offset(EPSILON));
+
+        final var boilingPointOfWater = Temperature.boilingPointOfWater();
+        final float expectedBoilingPointOfWaterInCelsius = 99.9839f;
+        assertThat(boilingPointOfWater.asCelsius()).isCloseTo(expectedBoilingPointOfWaterInCelsius, Offset.offset(EPSILON));
     }
 }

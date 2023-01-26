@@ -10,6 +10,9 @@ public class Temperature {
     private static final float zeroCelsiusInKelvin = 273.15f;
     private static final float zeroCelsiusInFahrenheit = 32.0f;
 
+    private static final float freezingPointOfWaterInCelsius = 0.0f;
+    private static final float boilingPointOfWaterInCelsius = 99.9839f;
+
     private final float kelvin;
 
     private Temperature(float kelvin) {
@@ -47,7 +50,11 @@ public class Temperature {
     }
 
     public static Temperature freezingPointOfWater() {
-        return new Temperature(celsiusToKelvin(0.0f));
+        return new Temperature(celsiusToKelvin(freezingPointOfWaterInCelsius));
+    }
+
+    public static Temperature boilingPointOfWater() {
+        return new Temperature(celsiusToKelvin(boilingPointOfWaterInCelsius));
     }
 
     public float asKelvin() {
