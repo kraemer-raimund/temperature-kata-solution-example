@@ -2,8 +2,12 @@ package org.example;
 
 public class Temperature {
 
+    private static final float absoluteZeroInKelvin = 0.0f;
     private static final float absoluteZeroInCelsius = -273.15f;
     private static final float absoluteZeroInFahrenheit = -459.67f;
+
+    private static final float zeroCelsiusInCelsius = 0.0f;
+    private static final float zeroCelsiusInKelvin = 273.15f;
     private static final float zeroCelsiusInFahrenheit = 32.0f;
 
     private final float celsius;
@@ -20,23 +24,33 @@ public class Temperature {
         return new Temperature(fahrenheitToCelsius(fahrenheit));
     }
 
+    public float asKelvin() {
+        return celsiusToKelvin(celsius);
+    }
+
     public float asCelsius() {
         return celsius;
     }
 
     public float asFahrenheit() {
-        return celsiusToFahrenheit(this.celsius);
+        return celsiusToFahrenheit(celsius);
+    }
+
+    private static float celsiusToKelvin(float celsius) {
+        return remap(celsius,
+                absoluteZeroInCelsius, zeroCelsiusInCelsius,
+                absoluteZeroInKelvin, zeroCelsiusInKelvin);
     }
 
     private static float fahrenheitToCelsius(float fahrenheit) {
         return remap(fahrenheit,
                 absoluteZeroInFahrenheit, zeroCelsiusInFahrenheit,
-                absoluteZeroInCelsius, 0);
+                absoluteZeroInCelsius, zeroCelsiusInCelsius);
     }
 
     private static float celsiusToFahrenheit(float celsius) {
         return remap(celsius,
-                absoluteZeroInCelsius, 0,
+                absoluteZeroInCelsius, zeroCelsiusInCelsius,
                 absoluteZeroInFahrenheit, zeroCelsiusInFahrenheit);
     }
 
