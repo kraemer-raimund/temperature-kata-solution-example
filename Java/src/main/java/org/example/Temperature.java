@@ -2,12 +2,11 @@ package org.example;
 
 public class Temperature {
 
+    private static final float absoluteZeroInCelsius = -273.15f;
+    private static final float absoluteZeroInFahrenheit = -459.67f;
+    private static final float zeroCelsiusInFahrenheit = 32.0f;
+
     private final float celsius;
-
-    private final float absoluteZeroInCelsius = -273.15f;
-    private final float absoluteZeroInFahrenheit = -459.67f;
-
-    private final float zeroCelsiusInFahrenheit = 32.0f;
 
     private Temperature(float celsius) {
         this.celsius = celsius;
@@ -22,15 +21,19 @@ public class Temperature {
     }
 
     public float asFahrenheit() {
-        final var differenceCelsius = 0 - absoluteZeroInCelsius;
-        final var differenceFahrenheit = zeroCelsiusInFahrenheit - absoluteZeroInFahrenheit;
-        final var scaleStretchFactor = differenceFahrenheit / differenceCelsius;
-        final var scaleOffset = zeroCelsiusInFahrenheit;
-
-        return remap(celsius, scaleStretchFactor, scaleOffset);
+        return celsiusToFahrenheit(this.celsius);
     }
 
-    private static float remap(float value, float stretch, float offset) {
-        return value * stretch + offset;
+    private static float celsiusToFahrenheit(float celsius) {
+        return remap(celsius,
+                absoluteZeroInCelsius, 0,
+                absoluteZeroInFahrenheit, zeroCelsiusInFahrenheit);
+    }
+
+    private static float remap(float value, float source1, float source2, float target1, float target2) {
+        // The original value normalized within its original range, resulting in
+        // a value between 0.0 (as it approaches "source1") and 1.0 (as it approaches "source2").
+        final var valueNormalized = (value - source1) / (source2 - source1);
+        return target1 + valueNormalized * (target2 - target1);
     }
 }
