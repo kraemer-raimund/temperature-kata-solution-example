@@ -28,6 +28,16 @@ class TemperatureTest {
         assertThat(actualCelsius).isCloseTo(expectedCelsius, Offset.offset(EPSILON));
     }
 
+    @Test
+    void shouldPreserveValue_fromFahrenheitToFahrenheit() {
+        final var expectedFahrenheit = 42.1337f;
+        final var temperature = Temperature.fromFahrenheit(expectedFahrenheit);
+
+        final var actualFahrenheit = temperature.asFahrenheit();
+
+        assertThat(actualFahrenheit).isCloseTo(expectedFahrenheit, Offset.offset(EPSILON));
+    }
+
     @ParameterizedTest
     @CsvSource(textBlock = KNOWN_VALUES)
     void shouldProvideCorrectValue_inCelsius(float knownCelsius, float knownFahrenheit) {
