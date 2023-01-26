@@ -42,6 +42,10 @@ public class Temperature {
         return new Temperature(kelvin);
     }
 
+    public static Temperature absoluteZero() {
+        return new Temperature(absoluteZeroInKelvin);
+    }
+
     public float asKelvin() {
         return kelvin;
     }

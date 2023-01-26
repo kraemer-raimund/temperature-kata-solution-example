@@ -64,4 +64,11 @@ class TemperatureTest {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> Temperature.fromCelsius(-300.0f));
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> Temperature.fromFahrenheit(-500.0f));
     }
+
+    @Test
+    void shouldProvideCommonConstants() {
+        final var absoluteZero = Temperature.absoluteZero();
+        final float expectedAbsoluteZeroInKelvin = 0.0f;
+        assertThat(absoluteZero.asKelvin()).isCloseTo(expectedAbsoluteZeroInKelvin, Offset.offset(EPSILON));
+    }
 }
