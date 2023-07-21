@@ -1,5 +1,5 @@
-># ***You are on the solution branch.***
-> Make sure to try solving it yourself first and check out the example solution afterwards. The provided solution is of course only an example of what your solution could look like.
+># ***This is an example solution.***
+> Make sure to [try solving the kata yourself first](https://github.com/kraemer-raimund/temperature-kata) and check out the example solution afterwards. The provided solution is of course only an example of what your solution could look like.
 
 # Temperature Kata
 
